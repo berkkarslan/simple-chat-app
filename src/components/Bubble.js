@@ -27,12 +27,7 @@ class Bubble extends React.Component {
               <View key={index} style={{flexDirection: 'row'}}>
                 <View style={[styles.item, styles.itemIn]}>
                   <View style={[styles.balloon, {backgroundColor: 'grey'}]}>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}>
+                    <View style={styles.bubble}>
                       <Image
                         style={{width: 24, height: 24}}
                         source={{
@@ -43,14 +38,7 @@ class Bubble extends React.Component {
                           )}&background=${this.getRandomColor()}&color=ffffff&rounded=true`,
                         }}
                       />
-                      <Text
-                        style={{
-                          paddingLeft: 5,
-                          color: 'white',
-                          fontWeight: '500',
-                        }}>
-                        {item.nickname}
-                      </Text>
+                      <Text style={styles.nickname}>{item.nickname}</Text>
                     </View>
                     <Text style={{paddingTop: 5, color: 'white'}}>
                       {item.message}
@@ -82,12 +70,7 @@ class Bubble extends React.Component {
             return (
               <View style={[styles.item, styles.itemOut]} key={index}>
                 <View style={[styles.balloon, {backgroundColor: '#1084ff'}]}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'flex-start',
-                      alignItems: 'center',
-                    }}>
+                  <View style={styles.baloon}>
                     <Image
                       style={{width: 24, height: 24}}
                       source={{
@@ -98,14 +81,7 @@ class Bubble extends React.Component {
                         )}&background=${this.getRandomColor()}&color=ffffff&rounded=true`,
                       }}
                     />
-                    <Text
-                      style={{
-                        paddingLeft: 5,
-                        color: 'white',
-                        fontWeight: '500',
-                      }}>
-                      {item.nickname}
-                    </Text>
+                    <Text style={styles.nickname}>{item.nickname}</Text>
                   </View>
                   <Text style={{paddingTop: 5, color: 'white'}}>
                     {item.message}
@@ -180,6 +156,21 @@ const styles = StyleSheet.create({
 
   arrowRight: {
     right: moderateScale(-6, 0.5),
+  },
+  bubble: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  nickname: {
+    paddingLeft: 5,
+    color: 'white',
+    fontWeight: '500',
+  },
+  baloon: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
 });
 export default Bubble;
