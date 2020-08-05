@@ -1,6 +1,6 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, View, Dimensions} from 'react-native';
-import {TextInput, Button, Title} from 'react-native-paper';
+import {TextInput, Button, Title, Dialog} from 'react-native-paper';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 
@@ -9,7 +9,18 @@ class App extends React.Component {
     super();
     this.state = {
       name: '',
+      visible: false,
     };
+  }
+
+  handleClick() {
+    if (this.state.name.length < 2) {
+      this.setState({visible: true});
+    } else {
+      this.props.navigation.navigate('Chat', {
+        usernamex: this.state.name,
+      });
+    }
   }
 
   render() {
@@ -26,13 +37,24 @@ class App extends React.Component {
           }}
         />
         <Button
-          onPress={() => {
-            this.props.navigation.navigate('Chat');
-          }}
+          onPress={() => this.handleClick()}
           mode="contained"
           style={styles.button}>
           Continue
         </Button>
+        <Dialog
+          visible={this.state.visible}
+          onDismiss={() => this.setState({visible: false})}>
+          <Dialog.Title>Error</Dialog.Title>
+          <Dialog.Content>
+            <Title>Your nickname must be longer than 2 characters.</Title>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={() => this.setState({visible: false})}>
+              Done
+            </Button>
+          </Dialog.Actions>
+        </Dialog>
       </View>
     );
   }

@@ -5,11 +5,23 @@ import {
   SafeAreaView,
   StyleSheet,
   Dimensions,
-  KeyboardAvoidingView,
   Platform,
+  KeyboardAvoidingView,
 } from 'react-native';
 import {TextInput, IconButton, Title} from 'react-native-paper';
 import Bubble from './Bubble';
+import firebase from 'react-native-firebase';
+import DeviceInfo from 'react-native-device-info';
+
+var config = {
+  databaseURL: 'https://simple-chat-app-c855f.firebaseio.com/',
+  projectId: '992710445218',
+};
+firebase.initializeApp(config);
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(config);
+}
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 
@@ -18,7 +30,58 @@ class ChatUI extends React.Component {
     super();
     this.state = {
       message: '',
+      items: [],
+      renderItems: [],
     };
+  }
+
+  componentDidMount() {
+    firebase
+      .database()
+      .ref('/Messages')
+      .on('value', (snapshot) => {
+        this.setState({items: snapshot.val()});
+        this.getMessages();
+      });
+  }
+
+  getMessages() {
+    const arr = [];
+    if (this.state.items !== null && this.state.items !== undefined) {
+      this.setState({renderItems: arr});
+      for (const [key, value] of Object.entries(this.state.items)) {
+        arr.push(value);
+      }
+      arr.sort((a, b) => (a.time > b.time ? 1 : -1));
+      this.setState({renderItems: arr});
+    }
+  }
+
+  sendMessage() {
+    if (this.state.message !== '') {
+      const message = this.state.message;
+      const nickname = this.props.usernamex;
+      const deviceID = DeviceInfo.getUniqueId();
+      const date = new Date();
+      const time = date.getTime();
+      firebase
+        .database()
+        .ref('Messages/')
+        .push({
+          nickname,
+          message,
+          time,
+          deviceID,
+        })
+        .then((data) => {
+          //success callback
+        })
+        .catch((error) => {
+          //error callback
+          console.log('error ', error);
+        });
+      this.setState({message: ''});
+    }
   }
 
   render() {
@@ -27,8 +90,8 @@ class ChatUI extends React.Component {
         style={styles.container}
         enabled
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <SafeAreaView>
-          <Bubble />
+        <SafeAreaView style={{flex: 1}}>
+          <Bubble messages={this.state.renderItems} />
         </SafeAreaView>
         <SafeAreaView style={styles.messageBox}>
           <TextInput
@@ -39,9 +102,12 @@ class ChatUI extends React.Component {
             onChangeText={(text) => {
               this.setState({message: text});
             }}
+            onFocus={() => {}}
           />
           <IconButton
-            onPress={() => {}}
+            onPress={() => {
+              this.sendMessage();
+            }}
             icon="send"
             color={'#fff'}
             size={20}

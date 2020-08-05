@@ -1,65 +1,137 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
 import {Svg, Path} from 'react-native-svg';
 import {moderateScale} from 'react-native-size-matters';
+import DeviceInfo from 'react-native-device-info';
 
 class Bubble extends React.Component {
-  arrowLeft(text) {
-    return (
-      <View style={[styles.item, styles.itemIn]}>
-        <View style={[styles.balloon, {backgroundColor: 'grey'}]}>
-          <Text style={{paddingTop: 5, color: 'white'}}>{text}</Text>
-          <View style={[styles.arrowContainer, styles.arrowLeftContainer]}>
-            <Svg
-              style={styles.arrowLeft}
-              width={moderateScale(15.5, 0.6)}
-              height={moderateScale(17.5, 0.6)}
-              viewBox="32.484 17.5 15.515 17.5"
-              enable-background="new 32.485 17.5 15.515 17.5">
-              <Path
-                d="M38.484,17.5c0,8.75,1,13.5-6,17.5C51.484,35,52.484,17.5,38.484,17.5z"
-                fill="grey"
-                x="0"
-                y="0"
-              />
-            </Svg>
-          </View>
-        </View>
-      </View>
-    );
-  }
+  getRandomColor() {
+    var colors = ['1abc9c'];
+    var index = Math.floor(Math.random() * colors.length + 0);
 
-  arrowRight(text) {
-    return (
-      <View style={[styles.item, styles.itemOut]}>
-        <View style={[styles.balloon, {backgroundColor: '#1084ff'}]}>
-          <Text style={{paddingTop: 5, color: 'white'}}>{text}</Text>
-          <View style={[styles.arrowContainer, styles.arrowRightContainer]}>
-            <Svg
-              style={styles.arrowRight}
-              width={moderateScale(15.5, 0.6)}
-              height={moderateScale(17.5, 0.6)}
-              viewBox="32.485 17.5 15.515 17.5"
-              enable-background="new 32.485 17.5 15.515 17.5">
-              <Path
-                d="M48,35c-7-4-6-8.75-6-17.5C28,17.5,29,35,48,35z"
-                fill="#1084ff"
-                x="0"
-                y="0"
-              />
-            </Svg>
-          </View>
-        </View>
-      </View>
-    );
+    return colors[index];
   }
 
   render() {
     return (
-      <View>
-        {this.arrowLeft('Merhaba')}
-        {this.arrowRight('Selam')}
-      </View>
+      <ScrollView
+        ref={(ref) => {
+          this.scrollView = ref;
+        }}
+        onContentSizeChange={() =>
+          this.scrollView.scrollToEnd({animated: true})
+        }>
+        {this.props.messages.map((item, index) => {
+          if (item.deviceID !== DeviceInfo.getUniqueId()) {
+            return (
+              <View key={index} style={{flexDirection: 'row'}}>
+                <View style={[styles.item, styles.itemIn]}>
+                  <View style={[styles.balloon, {backgroundColor: 'grey'}]}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}>
+                      <Image
+                        style={{width: 24, height: 24}}
+                        source={{
+                          uri: `https://ui-avatars.com/api/?name=${item.nickname.charAt(
+                            0,
+                          )}+${item.nickname.charAt(
+                            1,
+                          )}&background=${this.getRandomColor()}&color=ffffff&rounded=true`,
+                        }}
+                      />
+                      <Text
+                        style={{
+                          paddingLeft: 5,
+                          color: 'white',
+                          fontWeight: '500',
+                        }}>
+                        {item.nickname}
+                      </Text>
+                    </View>
+                    <Text style={{paddingTop: 5, color: 'white'}}>
+                      {item.message}
+                    </Text>
+                    <View
+                      style={[
+                        styles.arrowContainer,
+                        styles.arrowLeftContainer,
+                      ]}>
+                      <Svg
+                        style={styles.arrowLeft}
+                        width={moderateScale(15.5, 0.6)}
+                        height={moderateScale(17.5, 0.6)}
+                        viewBox="32.484 17.5 15.515 17.5"
+                        enable-background="new 32.485 17.5 15.515 17.5">
+                        <Path
+                          d="M38.484,17.5c0,8.75,1,13.5-6,17.5C51.484,35,52.484,17.5,38.484,17.5z"
+                          fill="grey"
+                          x="0"
+                          y="0"
+                        />
+                      </Svg>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            );
+          } else {
+            return (
+              <View style={[styles.item, styles.itemOut]} key={index}>
+                <View style={[styles.balloon, {backgroundColor: '#1084ff'}]}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'flex-start',
+                      alignItems: 'center',
+                    }}>
+                    <Image
+                      style={{width: 24, height: 24}}
+                      source={{
+                        uri: `https://ui-avatars.com/api/?name=${item.nickname.charAt(
+                          0,
+                        )}+${item.nickname.charAt(
+                          1,
+                        )}&background=${this.getRandomColor()}&color=ffffff&rounded=true`,
+                      }}
+                    />
+                    <Text
+                      style={{
+                        paddingLeft: 5,
+                        color: 'white',
+                        fontWeight: '500',
+                      }}>
+                      {item.nickname}
+                    </Text>
+                  </View>
+                  <Text style={{paddingTop: 5, color: 'white'}}>
+                    {item.message}
+                  </Text>
+                  <View
+                    style={[styles.arrowContainer, styles.arrowRightContainer]}>
+                    <Svg
+                      style={styles.arrowRight}
+                      width={moderateScale(15.5, 0.6)}
+                      height={moderateScale(17.5, 0.6)}
+                      viewBox="32.485 17.5 15.515 17.5"
+                      enable-background="new 32.485 17.5 15.515 17.5">
+                      <Path
+                        d="M48,35c-7-4-6-8.75-6-17.5C28,17.5,29,35,48,35z"
+                        fill="#1084ff"
+                        x="0"
+                        y="0"
+                      />
+                    </Svg>
+                  </View>
+                </View>
+              </View>
+            );
+          }
+        })}
+      </ScrollView>
     );
   }
 }

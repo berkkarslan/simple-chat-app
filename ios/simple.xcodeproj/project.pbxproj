@@ -18,6 +18,7 @@
 		372057B5451A873CBF5D6A91 /* libPods-simple.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD7566972DCAD8012D8D426D /* libPods-simple.a */; };
 		4485A68B460A74ADF41CFB94 /* libPods-simple-simpleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7A822ED7DE7069A6AA9A00 /* libPods-simple-simpleTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		C0D7BCC524D9FC6A00D40FD3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0D7BCC424D9FC6900D40FD3 /* GoogleService-Info.plist */; };
 		DF3AE320204C0D1B969C95B3 /* libPods-simple-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C75F95B8F22F1F6DCCFBE97 /* libPods-simple-tvOS.a */; };
 		E014C46CE8F8B483A79514C8 /* libPods-simple-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF9FFBE02C62F9E9AEE1907 /* libPods-simple-tvOSTests.a */; };
 /* End PBXBuildFile section */
@@ -62,6 +63,7 @@
 		AD7566972DCAD8012D8D426D /* libPods-simple.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-simple.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9BA5B19E3D8853F33B09B4F /* Pods-simple-simpleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-simple-simpleTests.release.xcconfig"; path = "Target Support Files/Pods-simple-simpleTests/Pods-simple-simpleTests.release.xcconfig"; sourceTree = "<group>"; };
 		BD9EB9EFB0ACB8EFF4135E89 /* Pods-simple.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-simple.debug.xcconfig"; path = "Target Support Files/Pods-simple/Pods-simple.debug.xcconfig"; sourceTree = "<group>"; };
+		C0D7BCC424D9FC6900D40FD3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C551D62FCE20817E22E13407 /* Pods-simple-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-simple-tvOS.release.xcconfig"; path = "Target Support Files/Pods-simple-tvOS/Pods-simple-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		E2E6261C128719B3852C2F8C /* Pods-simple-simpleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-simple-simpleTests.debug.xcconfig"; path = "Target Support Files/Pods-simple-simpleTests/Pods-simple-simpleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E3A25E6E2CD91D5D9BF5A86A /* Pods-simple-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-simple-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-simple-tvOS/Pods-simple-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 		13B07FAE1A68108700A75B9A /* simple */ = {
 			isa = PBXGroup;
 			children = (
+				C0D7BCC424D9FC6900D40FD3 /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -349,6 +352,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				C0D7BCC524D9FC6A00D40FD3 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

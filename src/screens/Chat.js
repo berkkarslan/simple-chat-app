@@ -16,7 +16,7 @@ class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ChatUI />
+        <ChatUI usernamex={this.props.navigation.state.params.usernamex} />
       </View>
     );
   }
